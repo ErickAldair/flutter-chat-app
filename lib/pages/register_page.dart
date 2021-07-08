@@ -1,3 +1,4 @@
+import 'package:chat/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,6 +63,9 @@ class __FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
+
+    
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -101,7 +105,7 @@ class __FormState extends State<_Form> {
               final registroOk = await authService.register(nameCtrl.text.trim(), emailCtrl.text.trim(), passCtrl.text.trim());
 
               if(registroOk == true){
-                //TODO: Conectar a nuestro socket server
+                socketService.disconnect();
                 Navigator.pushReplacementNamed(context, 'login');
 
               }else{
